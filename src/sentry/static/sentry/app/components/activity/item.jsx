@@ -1,6 +1,7 @@
 import marked from 'marked';
 import React from 'react';
 
+import {CommitLink} from '../../views/releases/releaseCommits';
 import Duration from '../../components/duration';
 import Avatar from '../../components/avatar';
 import {Link} from 'react-router';
@@ -92,7 +93,9 @@ const ActivityItem = React.createClass({
       case 'set_resolved_in_commit':
         return tct('[author] marked [link:an issue] as fixed in [version]', {
           author: author,
-          version: data.commit.id.substr(0, 12),
+          version: (
+            <CommitLink commitId={data.commit.id} repository={data.commit.repository} />
+          ),
           link: <Link to={`/${orgId}/${project.slug}/issues/${issue.id}/`} />
         });
       case 'set_unresolved':
